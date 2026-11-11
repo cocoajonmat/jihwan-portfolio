@@ -73,7 +73,7 @@
 5. [ ] **목록 배치 점검**: 작품 수를 바꾸면 `layout` 의 wide/offset 짝이 어색해질 수 있음. 1440 / 1024 / 390px 폭에서 확인.
 6. [ ] **메타 정보 교체**: `<title>`과 `description` 은 임시 문구로 교체 완료. 남은 것: 파비콘, 공유용 미리보기 이미지(`og:image`, 배포 주소가 정해지면 `og:title`/`og:description` 과 함께 추가).
 7. [x] **샘플 표시 제거**: 목록 맨 아래 문구 삭제 완료. (영상이 없을 때 보이는 "영상 준비 중 · 샘플", 쇼릴 "(샘플)" 안내는 영상을 연결하면 사라짐)
-8. [ ] **배포**: GitHub 저장소 만들고 GitHub Pages로 올리기 (README 6번). 필요하면 도메인 연결.
+8. [x] **배포**: GitHub Pages 로 공개 완료(2026-11-11). 주소 https://cocoajonmat.github.io/jihwan-portfolio/ , 저장소 https://github.com/cocoajonmat/jihwan-portfolio (Public, `main` 브랜치 루트). 아직 샘플 작품이 섞여 있음. 남은 것: 필요하면 도메인 연결, `og:image` 추가.
 9. [ ] **최종 점검**: 한/영 문구, 휴대폰 화면, 콘솔 오류, 키보드 조작, 쇼릴/풀영상/hover 미리보기 재생. 마지막에 쓰지 않는 BEFORE/AFTER 슬라이더 코드 삭제 여부 결정.
 
 ## 친구에게 받을 자료 (받으면 체크)
@@ -127,4 +127,5 @@
 
 - 로컬 실행: VS Code Live Server, 또는 이 폴더에서 `python3 -m http.server 8000` 후 `http://localhost:8000`. (유튜브는 `file://` 로 열면 오류가 날 수 있어 서버로 확인)
 - 고친 뒤 확인: 폭 1440 / 1024 / 390 에서 홈, 목록, 상세, 연락 화면을 보고, 브라우저 콘솔에 오류가 없는지, 한/영 전환과 쇼릴 팝업(Esc), 배경 멈춤 버튼이 동작하는지 확인.
-- 영상/이미지 변환은 `ffmpeg` 사용 (명령은 README 4번).
+- 영상/이미지 변환은 `ffmpeg` 사용 (명령은 README 4번). 이 컴퓨터에는 winget 으로 설치돼 있으나 새 터미널을 열기 전에는 PATH 에 없을 수 있음.
+- **수정 내용을 사이트에 올리기**: 이 폴더에서 `git add -A` → `git commit -m "메시지"` → `git push`. 1~2분 뒤 https://cocoajonmat.github.io/jihwan-portfolio/ 에 반영됨(브라우저 캐시 때문에 강력 새로고침 `Ctrl+Shift+R` 필요할 수 있음). GitHub 로그인은 `gh`(GitHub CLI, `C:\\Program Files\\GitHub CLI\\gh.exe`)로 되어 있음. 올리기 전에 `raw/`(4K 원본)가 제외되는지, 100MB 넘는 파일이 없는지 확인.
