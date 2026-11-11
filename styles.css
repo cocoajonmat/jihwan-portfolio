@@ -72,6 +72,15 @@ h1, h2, p, dl, dd, figure { margin: 0; }
 .id-list { display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 2px 8px; font-size: 14px; align-items: baseline; overflow-wrap: anywhere; }
 .id-go { margin-top: 10px; color: var(--fg); }
 
+/* 작품 상세의 '목록으로' 버튼: 이름 카드 아래에 고정(.top 이 fixed 라서 스크롤해도 따라옴). 이름 카드와 같은 유리 느낌 */
+.back-fixed {
+  position: absolute; left: var(--pad); top: 64px; width: 40px; height: 40px;
+  display: grid; place-items: center; border: 1px solid rgba(236,236,230,.28); border-radius: 12px;
+  background: rgba(16,18,16,.5); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); color: var(--fg);
+  transition: background .2s, border-color .2s, color .2s;
+}
+.back-fixed[hidden] { display: none; }
+.back-fixed:hover { background: var(--accent); border-color: var(--accent); color: #17120a; }
 .top-right { position: absolute; right: var(--pad); top: 16px; display: flex; align-items: center; gap: 14px; }
 .cats { display: flex; gap: 6px; opacity: 0; transform: translateY(-6px); pointer-events: none; transition: opacity .3s, transform .3s; }
 body.in-list .cats { opacity: 1; transform: none; pointer-events: auto; }
@@ -229,6 +238,14 @@ body:not(.in-list) .lang { border-left-color: transparent; padding-left: 0; }
 
 .d-body { padding: clamp(40px, 6vw, 96px) var(--pad) 0; }
 .summary { max-width: 52ch; margin: 0 auto; text-align: center; font-size: clamp(16px, 1.5vw, 19px); color: #dcddd6; text-wrap: pretty; }
+/* 수상·노미네이트: 소개 문구 아래, 가운데 정렬된 좁은 표. 한 줄에 영화제 이름(왼쪽)과 결과(오른쪽), 그 아래 장소 */
+.awards { max-width: 640px; margin: clamp(32px, 5vw, 56px) auto 0; }
+.awards h2 { margin-bottom: 10px; }
+.award-list li { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 20px; row-gap: 2px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.award-list li:first-child { border-top: 1px solid var(--line); }
+.aw-name { color: var(--fg); }
+.aw-res { color: var(--accent); text-align: right; }
+.aw-place { grid-column: 1 / -1; font-size: 11px; letter-spacing: .08em; color: var(--muted); }
 .d-cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(24px, 4vw, 72px); max-width: 1000px; margin: clamp(40px, 6vw, 80px) auto 0; }
 .d-cols h2 { margin-bottom: 10px; }
 .credit-list > div { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--line); }
@@ -296,7 +313,7 @@ body:not(.in-list) .lang { border-left-color: transparent; padding-left: 0; }
   .tile.offset, .mosaic.filtered .tile:nth-child(4n+2), .mosaic.filtered .tile:nth-child(4n+3) { padding-top: 0; }
   .tile-img, .tile.wide .tile-img { aspect-ratio: 16 / 10; }
   .stage-box { --w: 100%; }
-  .d-hero { align-content: start; padding-top: 14px; }
+  .d-hero { align-content: start; padding-top: 44px; }   /* 왼쪽 위 '<' 버튼(64~104px)과 영상이 겹치지 않게 */
   .scroll-hint { position: static; margin-top: 8px; }
   .c-list > div { grid-template-columns: 76px minmax(0, 1fr); }
   .c-list .copy-btn { grid-column: 2; justify-self: start; }

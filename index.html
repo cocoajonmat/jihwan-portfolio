@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#101210">
-<meta name="description" content="영상 색보정을 하는 윤지환의 포트폴리오. 단편 영화, 뮤직비디오, 브랜드 필름, 다큐멘터리 작업을 소개합니다.">
+<meta name="description" content="영상 색보정을 하는 윤지환의 포트폴리오. 댄스필름, MV 작업을 소개합니다.">
 <title>윤지환 영상 포트폴리오</title>
 <!-- 링크 공유 미리보기(카카오톡, 슬랙, 페이스북 등). og:image 와 og:url 은 전체 주소여야 하므로 도메인이 바뀌면 함께 고칩니다. -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="jihwan.yoon">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:title" content="윤지환 영상 포트폴리오">
-<meta property="og:description" content="영상 색보정을 하는 윤지환의 포트폴리오. 단편 영화, 뮤직비디오, 브랜드 필름, 다큐멘터리 작업을 소개합니다.">
+<meta property="og:description" content="영상 색보정을 하는 윤지환의 포트폴리오. 댄스필름, MV 작업을 소개합니다.">
 <meta property="og:url" content="https://cocoajonmat.github.io/jihwan-portfolio/">
 <meta property="og:image" content="https://cocoajonmat.github.io/jihwan-portfolio/assets/og-image.jpg">
 <meta property="og:image:width" content="1280">
@@ -31,6 +31,10 @@
 <div class="veil" id="veil" aria-hidden="true"></div>
 
 <header class="top">
+  <!-- 작품 상세에서만 보이는 '목록으로' 버튼. 이름 카드 바로 아래에 고정되어 스크롤해도 따라옵니다. 이름 카드가 펼쳐질 때 위로 덮이도록 카드보다 앞에 둡니다. -->
+  <a class="back-fixed" id="back-fixed" href="#work" hidden aria-label="Back to list" title="Back to list">
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
   <!-- 이름: 마우스를 올리면 연락처 카드로 확장, 누르면 연락 화면 -->
   <a class="id" id="id" href="#contact" aria-label="Contact">
     <span class="id-row">
@@ -116,6 +120,10 @@
 
       <section class="d-body">
         <p class="summary" id="film-summary"></p>
+        <div class="awards" id="awards" hidden>
+          <h2 class="mono" data-i18n="awards_title"></h2>
+          <ul class="award-list" id="award-list"></ul>
+        </div>
         <div class="d-cols">
           <div>
             <h2 class="mono" data-i18n="credits_title"></h2>

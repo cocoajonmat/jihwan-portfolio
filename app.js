@@ -8,7 +8,7 @@
     ko: {
       id_go: "연락 화면으로", watch: "쇼릴 보기", featured: "대표작", bg_pause: "배경 영상 일시정지", bg_play: "배경 영상 재생",
       foot_contact: "연락하기", to_top: "맨 위로 ↑",
-      back: "목록으로", scroll_info: "아래로 스크롤하면 작업 정보", credits_title: "크레딧", pal_title: "색 구성",
+      back: "목록으로", scroll_info: "아래로 스크롤하면 작업 정보", credits_title: "크레딧", pal_title: "색 구성", awards_title: "수상 · 노미네이트",
       strip_title: "선별 스틸", strip_hint: "옆으로 넘겨 보세요 · 클릭하면 크게", next: "다음 작품",
       play: "영상 재생", pending: "영상 준비 중 · 샘플",
       cmp_label: "보정 전후 비교", cmp_close: "× 영상 닫기",
@@ -19,7 +19,7 @@
     en: {
       id_go: "Open contact", watch: "Watch showreel", featured: "Featured", bg_pause: "Pause background", bg_play: "Play background",
       foot_contact: "Contact", to_top: "Back to top ↑",
-      back: "Back to list", scroll_info: "Scroll for project info", credits_title: "Credits", pal_title: "Palette",
+      back: "Back to list", scroll_info: "Scroll for project info", credits_title: "Credits", pal_title: "Palette", awards_title: "Awards & nominations",
       strip_title: "Selected stills", strip_hint: "Swipe sideways · click to enlarge", next: "Next project",
       play: "Play film", pending: "Film coming soon · sample",
       cmp_label: "Before and after grade", cmp_close: "× Close video",
@@ -327,6 +327,17 @@
     $("#film-title").textContent = d.title;
     $("#d-line").textContent = [d.kind, d.role, p.year, p.runtime].join(" · ");
     $("#film-summary").textContent = d.summary;
+    // 수상·노미네이트: 데이터가 있는 작품에서만 보입니다. 한 줄 = [영화제 이름, 결과, 장소]
+    var aw = p.awards ? p.awards[lang()] : [], awList = $("#award-list");
+    awList.textContent = "";
+    $("#awards").hidden = !aw.length;
+    aw.forEach(function (a) {
+      awList.appendChild(el("li", {}, [
+        el("span", { class: "aw-name", text: a[0] }),
+        el("span", { class: "aw-res", text: a[1] }),
+        el("span", { class: "mono aw-place", text: a[2] })
+      ]));
+    });
     document.title = d.title + " — " + S.name[lang()];
 
     var box = $("#cmp-wrap");
@@ -401,6 +412,7 @@
     var h = location.hash.replace("#", ""), id = PF.filmId(), p = id && PF.byId(id);
     var home = $("#view-home"), film = $("#view-film"), contact = $("#view-contact");
     idCard.classList.remove("open");
+    $("#back-fixed").hidden = !p;   // 왼쪽 위 '<' 버튼은 작품 상세에서만 보임
     if (p) {
       var same = shown === p.id;
       home.hidden = true; contact.hidden = true; film.hidden = false;
@@ -432,6 +444,9 @@
 
   function paint() {
     paintId();
+    var bf = $("#back-fixed");   // 아이콘만 있는 버튼이라 읽어 주는 이름과 툴팁을 언어에 맞춰 넣음
+    bf.setAttribute("aria-label", t("back"));
+    bf.title = t("back");
     $("#foot-copy").textContent = "© " + S.year + " " + S.wordmark;
     var nm = $("#home-name");
     nm.textContent = S.wordmark;

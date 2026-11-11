@@ -3,7 +3,7 @@
 영상 색보정 일을 하는 윤지환 님의 포트폴리오 사이트입니다.
 HTML, CSS, JavaScript만 쓰는 정적 사이트라서 설치나 빌드 없이 바로 열립니다.
 
-> 지금 들어 있는 이름, 작품, 이미지, 영상은 모두 **샘플(자리표시)** 입니다. 실제 내용으로 바꾸는 방법은 아래에 있습니다.
+> 01번 작품('느티가 빰을 훑고')과 홈 배경, 쇼릴만 실제 자료이고 나머지 작품(02~07번)의 이미지와 문구는 **샘플(자리표시)** 입니다. 실제 내용으로 바꾸는 방법은 아래에 있습니다.
 
 ---
 
@@ -48,7 +48,7 @@ showreel: "assets/showreel.mp4",// '쇼릴 보기' 팝업에서 재생될 영상
 | 항목 | 설명 |
 |---|---|
 | `id` | 두 자리 번호 (`"09"`). 주소(`#film-09`)와 이미지 파일 이름에 쓰입니다 |
-| `cat` | 분야. `SITE.cats` 의 `id` 중 하나 (`film`, `mv`, `brand`, `doc`) |
+| `cat` | 분야. `SITE.cats` 의 `id` 중 하나 (`dancefilm`, `mv`). 분야를 바꾸거나 늘리려면 `SITE.cats` 를 고치고 작품의 `cat` 도 같이 맞춥니다 |
 | `image` | 보정 후(AFTER) 대표 이미지. 목록 카드와 상세 화면에 쓰입니다 |
 | `before` | (지금은 쓰지 않음) 보정 전 이미지. 비워 두면(`""`) 전후 비교 없이 일반 플레이어가 나옵니다. 전후 비교는 풀영상 안의 와이퍼로 보여 줍니다 |
 | `frames` | 상세 화면 아래 스틸 이미지들 |
@@ -56,7 +56,8 @@ showreel: "assets/showreel.mp4",// '쇼릴 보기' 팝업에서 재생될 영상
 | `videoBefore`, `videoAfter` | 전후 비교용 영상 파일 두 개 (둘 다 있어야 합니다) |
 | `layout` | 목록(2열)에서의 배치. `"wide"` = 두 칸 전체, `"offset"` = 아래로 내려서 어긋나게, `""` = 한 칸 |
 | `preview` | (선택) 목록에서 마우스를 올리면 재생되는 3~5초 무음 mp4 |
-| `credits`, `palette`, `ko`/`en` | 크레딧, 색 구성(색 코드 5개), 제목·소개 문구 |
+| `awards` | (선택) 영화제 수상·노미네이트. `cr([["영화제 이름", "결과", "장소"], ...], [[영어 …]])` 모양이고, 상세 화면의 소개 문구 아래에 표로 보입니다. 없으면 이 칸은 안 나옵니다 |
+| `credits`, `palette`, `ko`/`en` | 크레딧, 색 구성(색 코드 5개), 제목·소개 문구(`summary` = 기획 의도) |
 
 목록은 순서대로 자동 배치되어서 작품을 추가·삭제해도 빈칸이 생기지 않습니다. 다만 `wide` 와 `offset` 의 짝이 어색해지지 않았는지 목록 화면을 한 번 확인하세요.
 
@@ -80,6 +81,11 @@ showreel: "assets/showreel.mp4",// '쇼릴 보기' 팝업에서 재생될 영상
 ```bash
 # 홈 배경: 소리 없음, 높이 1080. 영상에 검은 띠가 있으면 crop 으로 잘라냄 (예: 4K 영상의 위아래 260px)
 ffmpeg -i raw/원본.mp4 -vf "crop=3840:1640:0:260,scale=-2:1080:flags=lanczos" -an -c:v libx264 -preset slow -crf 24 -pix_fmt yuv420p -movflags +faststart assets/bg-reel.mp4
+
+# 목록 카드 미리보기(4K 원본 → 1080p, 소리 제거). 원본의 색 태그를 그대로 붙이는 옵션(-x264-params)이 중요합니다.
+# 원본이 bt470m(감마 2.2)로 태그돼 있는데 옵션 없이 변환하면 태그가 빠져서 브라우저에서 조금 어둡게 보입니다.
+# (태그는 ffprobe -show_entries stream=color_transfer 로 확인)
+ffmpeg -i raw/원본.mp4 -vf "scale=1920:1080:flags=lanczos" -an -c:v libx264 -preset slow -crf 24 -pix_fmt yuv420p -x264-params "colorprim=bt709:transfer=bt470m:colormatrix=bt709:range=tv" -movflags +faststart assets/01-preview.mp4
 
 # 전후 비교: 두 클립은 길이, 해상도, 구도가 같아야 합니다
 ffmpeg -i raw/before.mov -an -vf scale=1280:-2 -c:v libx264 -crf 27 -pix_fmt yuv420p -movflags +faststart assets/01-before.mp4

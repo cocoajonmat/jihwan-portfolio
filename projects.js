@@ -22,6 +22,9 @@
   layout      : 목록(2열)에서의 배치. "wide" = 두 칸 전체 / "offset" = 아래로 내려서 어긋나게(왼쪽 카드에 주면 왼쪽이 내려감) / "" = 한 칸.
                 순서대로 자동 배치되므로 작품을 추가·삭제해도 빈칸이 생기지 않습니다.
   credits     : [역할, 이름, 본인 여부(1이면 강조)]
+  awards      : (선택) 영화제 수상·노미네이트 내역. 상세 화면의 소개 문구 아래에 표로 보입니다. 없으면 이 칸은 나타나지 않습니다.
+                cr([[영화제 이름, 결과, 장소], ...], [[English name, result, place], ...]) 모양으로 한국어/영어를 모두 적습니다.
+  summary     : 상세 화면의 소개 문구(ko/en 안). 지금은 기획 의도를 적는 자리로 씁니다.
 */
 window.SITE = {
   name: { ko: "윤지환", en: "Yoon Jihwan" },
@@ -43,14 +46,12 @@ window.SITE = {
   showreelYoutube: "ELmlZ-FZvJc",
   focus: { ko: ["색보정"], en: ["D.I"] },
   bio: {
-    ko: "색으로 이야기의 분위기를 완성합니다. 단편 영화, 뮤직비디오, 브랜드 필름, 다큐멘터리 작업을 합니다.",
-    en: "I finish the mood of a story in color. Short films, music videos, brand films and documentaries."
+    ko: "색으로 이야기의 분위기를 완성합니다. 댄스필름, MV 작업을 합니다.",
+    en: "I finish the mood of a story in color. Dancefilm and MV work."
   },
   cats: [
-    { id: "film", ko: "단편 영화", en: "Short film" },
-    { id: "mv", ko: "뮤직비디오", en: "Music video" },
-    { id: "brand", ko: "브랜드 필름", en: "Brand film" },
-    { id: "doc", ko: "다큐멘터리", en: "Documentary" }
+    { id: "dancefilm", ko: "Dancefilm", en: "Dancefilm" },
+    { id: "mv", ko: "MV", en: "MV" }
   ]
 };
 
@@ -61,91 +62,86 @@ window.SITE = {
 
   window.PROJECTS = [
     {
-      id: "01", cat: "film", youtube: "HVKK64J92cs", preview: "assets/bg-01.mp4", year: 2026, runtime: "12:40", layout: "wide",
-      image: "assets/01-thumb.webp", before: "", frames: stills("01", 6),
-      palette: ["#131720", "#31343d", "#5d5149", "#a67e56", "#eec874"],
-      credits: cr([["감독", "감독 이름", 0], ["색보정", me, 1]],
-                  [["Director", "Director name", 0], ["D.I", meEn, 1]]),
-      ko: { title: "새벽 배달", kind: "단편 영화", role: "색보정",
-        summary: "첫 배송이 시작되는 새벽 다섯 시. 찍어 온 장면의 호흡을 편집으로 다듬고, 텅스텐 톤의 따뜻함과 그림자의 푸른빛을 색보정으로 맞췄습니다." },
-      en: { title: "Dawn Delivery", kind: "Short film", role: "D.I",
-        summary: "Five in the morning, the first delivery of the day. The edit settles the breath of the footage; the grade balances warm tungsten against blue shadows." }
+      id: "01", cat: "dancefilm", youtube: "FlLhlmD5D8Y", preview: "assets/01-preview.mp4", year: 2025, runtime: "12:48", layout: "wide",
+      image: "assets/01-thumb.webp", before: "", frames: stills("01", 9),
+      palette: ["#140806", "#372616", "#594427", "#887453", "#beab8c"],
+      credits: cr([["감독", "이윤지", 0], ["색보정", me, 1]],
+                  [["Director", "Lee Yoonji", 0], ["D.I", meEn, 1]]),
+      awards: cr([["제9회 서울무용영화제 (SeDAFF)", "노미네이트", "한국, 서울"],
+                  ["제16회 DanzaTTack", "노미네이트", "스페인, 테네리페"],
+                  ["제8회 IMMAGINA film festival", "심사위원 언급상", "이탈리아, 나폴리"]],
+                 [["9th Seoul Dance Film Festival (SeDAFF)", "Nominee", "Seoul, South Korea"],
+                  ["16th DanzaTTack", "Nominee", "Tenerife, Spain"],
+                  ["8th IMMAGINA Film Festival", "Jury Special Mention", "Naples, Italy"]]),
+      ko: { title: "느티가 빰을 훑고", kind: "Dancefilm", role: "색보정",
+        summary: "이 영화는 아인의 흔들림을 성장을 위한 통과 의례나 극복해야 할 결핍으로 규정하지 않는다. 오히려 나아가려다 멈추고 붙잡으려다 놓치는 그 불완전한 움직임이야말로 인간이 지닌 가장 날 것의 상태라고 믿는다. 바람에 흔들린 느티나무 가지가 뺨을 훑고 지나갈 때, 우리는 다정한 위로가 아닌 서늘하고도 명확한 ‘살아있음’의 감각을 마주하게 된다." },
+      en: { title: "느티가 빰을 훑고", kind: "Dancefilm", role: "D.I",
+        summary: "This film does not define Ain's unsteadiness as a rite of passage toward growth, or as a lack to be overcome. Instead, it believes that those imperfect movements, stopping just as one tries to move forward and losing what one reaches to hold, are the rawest state a human being can be in. When a zelkova branch swaying in the wind brushes across a cheek, what we meet is not a tender comfort but a cool, unmistakable sense of being alive." }
     },
     {
-      id: "02", cat: "mv", youtube: "p74BRC_AZ9c", preview: "", year: 2025, runtime: "12:48", layout: "",
+      id: "02", cat: "mv", youtube: "", preview: "", year: 2025, runtime: "01:30", layout: "",
       image: "assets/02-thumb.webp", before: "", frames: stills("02", 5),
-      palette: ["#10250e", "#2a4b20", "#749357", "#a9c77e", "#f1fcc4"],
-      credits: cr([["감독", "감독 이름", 0], ["색보정", me, 1]],
-                  [["Director", "Director name", 0], ["D.I", meEn, 1]]),
-      ko: { title: "느티가 빰을 훑고", kind: "뮤직비디오", role: "색보정",
-        summary: "숲길을 걷는 한 사람을 따라가는 4분짜리 뮤직비디오. 박자에 맞춘 컷 전환과 번지는 역광의 초록으로 여름 오후의 공기를 만들었습니다." },
-      en: { title: "느티가 빰을 훑고", kind: "Music video", role: "D.I",
-        summary: "A four-minute music video following one walker through a forest. Beat-matched cuts and a blooming backlit green carry the air of a summer afternoon." }
-    },
-    {
-      id: "03", cat: "brand", youtube: "", preview: "", year: 2025, runtime: "01:30", layout: "offset",
-      image: "assets/03-thumb.webp", before: "", frames: stills("03", 5),
       palette: ["#07070e", "#0a0914", "#1f0f27", "#632c6e", "#ff4fa3"],
       credits: cr([["클라이언트", "브랜드 이름", 0], ["색보정", me, 1]],
                   [["Client", "Brand name", 0], ["D.I", meEn, 1]]),
-      ko: { title: "야간 영업", kind: "브랜드 필름", role: "색보정",
+      ko: { title: "야간 영업", kind: "MV", role: "색보정",
         summary: "밤새 불이 켜져 있는 가게들의 90초. 네온과 번진 불빛은 어둡게 눌러 두고, 사람의 얼굴에만 따뜻한 빛이 남도록 색을 잡았습니다." },
-      en: { title: "Open Late", kind: "Brand film", role: "D.I",
+      en: { title: "Open Late", kind: "MV", role: "D.I",
         summary: "Ninety seconds of shops that stay lit all night. Neon and bokeh are held low so the only warm light left falls on the faces." }
     },
     {
-      id: "04", cat: "doc", youtube: "", preview: "", year: 2024, runtime: "24:15", layout: "wide",
-      image: "assets/04-thumb.webp", before: "", frames: stills("04", 5),
+      id: "03", cat: "dancefilm", youtube: "", preview: "", year: 2024, runtime: "24:15", layout: "offset",
+      image: "assets/03-thumb.webp", before: "", frames: stills("03", 5),
       palette: ["#2f3941", "#78838c", "#a1acb4", "#c9d3db", "#f3f8fc"],
       credits: cr([["감독", "감독 이름", 0], ["색보정", me, 1]],
                   [["Director", "Director name", 0], ["D.I", meEn, 1]]),
-      ko: { title: "안개 주의보", kind: "다큐멘터리", role: "색보정",
+      ko: { title: "안개 주의보", kind: "Dancefilm", role: "색보정",
         summary: "안개가 잦은 항구 마을의 한 해를 담은 다큐멘터리. 채도를 낮춘 차분한 색으로, 흐린 날에도 화면마다 결이 다르게 보이도록 정리했습니다." },
-      en: { title: "Fog Advisory", kind: "Documentary", role: "D.I",
+      en: { title: "Fog Advisory", kind: "Dancefilm", role: "D.I",
         summary: "A year in a harbor town where fog is routine. A quiet, low-saturation grade keeps every overcast shot distinct from the next." }
     },
     {
-      id: "05", cat: "mv", youtube: "", preview: "", year: 2025, runtime: "04:10", layout: "offset",
-      image: "assets/05-thumb.webp", before: "", frames: stills("05", 5),
+      id: "04", cat: "mv", youtube: "", preview: "", year: 2025, runtime: "04:10", layout: "wide",
+      image: "assets/04-thumb.webp", before: "", frames: stills("04", 5),
       palette: ["#0e1525", "#1f354b", "#578593", "#7fbdc7", "#c5faf6"],
       credits: cr([["감독", "감독 이름", 0], ["색보정", me, 1]],
                   [["Director", "Director name", 0], ["D.I", meEn, 1]]),
-      ko: { title: "여름의 끝", kind: "뮤직비디오", role: "색보정",
+      ko: { title: "여름의 끝", kind: "MV", role: "색보정",
         summary: "여름이 끝나는 바닷가를 따라가는 뮤직비디오. 차가운 청록의 그림자와 밝게 뜬 하늘로 계절이 넘어가는 순간을 표현했습니다." },
-      en: { title: "End of Summer", kind: "Music video", role: "D.I",
+      en: { title: "End of Summer", kind: "MV", role: "D.I",
         summary: "A music video that follows the shore as summer ends. Cool teal shadows and a lifted sky mark the moment the season turns." }
     },
     {
-      id: "06", cat: "brand", youtube: "", preview: "", year: 2025, runtime: "00:45", layout: "",
-      image: "assets/06-thumb.webp", before: "", frames: stills("06", 5),
+      id: "05", cat: "dancefilm", youtube: "", preview: "", year: 2025, runtime: "00:45", layout: "offset",
+      image: "assets/05-thumb.webp", before: "", frames: stills("05", 5),
       palette: ["#0f060c", "#180812", "#280d15", "#521d1f", "#ac4954"],
       credits: cr([["클라이언트", "브랜드 이름", 0], ["색보정", me, 1]],
                   [["Client", "Brand name", 0], ["D.I", meEn, 1]]),
-      ko: { title: "골목의 빛", kind: "브랜드 필름", role: "색보정",
+      ko: { title: "골목의 빛", kind: "Dancefilm", role: "색보정",
         summary: "저녁 골목의 간판과 조명을 따뜻한 주황과 붉은 계열로 모은 45초짜리 광고. 원본의 들쭉날쭉한 색온도를 하나로 맞췄습니다." },
-      en: { title: "Alley Light", kind: "Brand film", role: "D.I",
+      en: { title: "Alley Light", kind: "Dancefilm", role: "D.I",
         summary: "A 45-second spot that gathers evening signs and lamps into warm orange and red. The uneven color temperatures of the original footage are matched into one." }
     },
     {
-      id: "07", cat: "film", youtube: "", preview: "", year: 2024, runtime: "18:20", layout: "",
-      image: "assets/07-thumb.webp", before: "", frames: stills("07", 5),
+      id: "06", cat: "dancefilm", youtube: "", preview: "", year: 2024, runtime: "18:20", layout: "",
+      image: "assets/06-thumb.webp", before: "", frames: stills("06", 5),
       palette: ["#243344", "#627893", "#879fbd", "#a9c4e5", "#d0e8fe"],
       credits: cr([["감독", "감독 이름", 0], ["색보정", me, 1]],
                   [["Director", "Director name", 0], ["D.I", meEn, 1]]),
-      ko: { title: "첫눈", kind: "단편 영화", role: "색보정",
+      ko: { title: "첫눈", kind: "Dancefilm", role: "색보정",
         summary: "첫눈이 오는 하루를 따라가는 단편. 말수가 적은 장면에서 침묵의 길이를 조절하는 데 집중한 편집 작업입니다." },
-      en: { title: "First Snow", kind: "Short film", role: "D.I",
+      en: { title: "First Snow", kind: "Dancefilm", role: "D.I",
         summary: "A short film about the day of the first snowfall. An edit focused on the length of silence in a film that says very little." }
     },
     {
-      id: "08", cat: "doc", youtube: "", preview: "", year: 2024, runtime: "31:05", layout: "offset",
-      image: "assets/08-thumb.webp", before: "", frames: stills("08", 6),
+      id: "07", cat: "mv", youtube: "", preview: "", year: 2024, runtime: "31:05", layout: "wide",
+      image: "assets/07-thumb.webp", before: "", frames: stills("07", 6),
       palette: ["#221512", "#392a26", "#3e3e39", "#495c5c", "#65b5cb"],
       credits: cr([["감독", "감독 이름", 0], ["색보정", me, 1]],
                   [["Director", "Director name", 0], ["D.I", meEn, 1]]),
-      ko: { title: "바다 위의 집", kind: "다큐멘터리", role: "색보정",
+      ko: { title: "바다 위의 집", kind: "MV", role: "색보정",
         summary: "바다 위에 집을 짓고 사는 사람들의 일 년. 긴 호흡의 인터뷰를 편집하고, 물빛과 낡은 목재의 색을 서로 어긋나지 않게 맞췄습니다." },
-      en: { title: "House on the Water", kind: "Documentary", role: "D.I",
+      en: { title: "House on the Water", kind: "MV", role: "D.I",
         summary: "A year with people who live in houses built over the sea. Long interviews are cut for breath, and the water and weathered wood are graded to sit together." }
     }
   ];
