@@ -258,7 +258,20 @@ body:not(.in-list) .lang { border-left-color: transparent; padding-left: 0; }
 .strip-head h2 { color: var(--fg); }
 .strip { display: flex; gap: var(--gap); overflow-x: auto; margin: 0 calc(var(--pad) * -1); padding: 0 var(--pad) 14px; scroll-snap-type: x proximity; scrollbar-width: thin; scrollbar-color: #333a33 transparent; }
 .strip li { flex: 0 0 auto; scroll-snap-align: start; }
-.shot { display: block; height: clamp(180px, 40svh, 380px); aspect-ratio: 16 / 9; background: var(--surface); overflow: hidden; }
+/* 선별 스틸 좌우 화살표: 살짝 투명하게 두고 마우스를 올리면 또렷해짐. 끝에 닿으면 그쪽 화살표는 사라짐(.off). 터치 기기에서는 숨김 */
+.strip-wrap { --shot-h: clamp(180px, 40svh, 380px); position: relative; }
+.strip-nav {
+  display: none; position: absolute; z-index: 2; top: calc(var(--shot-h) / 2); width: 48px; height: 48px; margin-top: -24px;
+  place-items: center; border: 1px solid rgba(236,236,230,.35); border-radius: 50%;
+  background: rgba(16,18,16,.45); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); color: var(--fg);
+  opacity: .6; cursor: pointer; transition: opacity .25s, background .2s, border-color .2s, color .2s;
+}
+.strip-prev { left: 14px; }
+.strip-next { right: 14px; }
+.strip-nav:hover { opacity: 1; background: var(--accent); border-color: var(--accent); color: #17120a; }
+.strip-nav.off { opacity: 0; pointer-events: none; }
+@media (hover: hover) and (pointer: fine) { .strip-nav { display: grid; } }
+.shot { display: block; height: var(--shot-h); aspect-ratio: 16 / 9; background: var(--surface); overflow: hidden; }
 .shot img { height: 100%; width: 100%; object-fit: cover; transition: transform .6s cubic-bezier(.2,.7,.2,1); }
 .shot:hover img { transform: scale(1.04); }
 .next { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 4px 20px; margin-top: clamp(48px, 7vw, 100px); padding: 22px 0 clamp(40px, 6vw, 72px); border-top: 1px solid var(--line); }

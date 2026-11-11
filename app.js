@@ -9,7 +9,7 @@
       id_go: "연락 화면으로", watch: "쇼릴 보기", featured: "대표작", bg_pause: "배경 영상 일시정지", bg_play: "배경 영상 재생",
       foot_contact: "연락하기", to_top: "맨 위로 ↑",
       back: "목록으로", scroll_info: "아래로 스크롤하면 작업 정보", credits_title: "크레딧", pal_title: "색 구성", awards_title: "수상 · 노미네이트",
-      strip_title: "선별 스틸", strip_hint: "옆으로 넘겨 보세요 · 클릭하면 크게", next: "다음 작품",
+      strip_title: "선별 스틸", strip_hint: "옆으로 넘겨 보세요 · 클릭하면 크게", strip_prev: "이전 스틸", strip_next: "다음 스틸", next: "다음 작품",
       play: "영상 재생", pending: "영상 준비 중 · 샘플",
       cmp_label: "보정 전후 비교", cmp_close: "× 영상 닫기",
       contact_label: "연락", c_back: "홈으로", c_email: "이메일", c_phone: "전화", copy: "복사", copied: "복사됨",
@@ -20,7 +20,7 @@
       id_go: "Open contact", watch: "Watch showreel", featured: "Featured", bg_pause: "Pause background", bg_play: "Play background",
       foot_contact: "Contact", to_top: "Back to top ↑",
       back: "Back to list", scroll_info: "Scroll for project info", credits_title: "Credits", pal_title: "Palette", awards_title: "Awards & nominations",
-      strip_title: "Selected stills", strip_hint: "Swipe sideways · click to enlarge", next: "Next project",
+      strip_title: "Selected stills", strip_hint: "Swipe sideways · click to enlarge", strip_prev: "Previous stills", strip_next: "Next stills", next: "Next project",
       play: "Play film", pending: "Film coming soon · sample",
       cmp_label: "Before and after grade", cmp_close: "× Close video",
       contact_label: "Contact", c_back: "Home", c_email: "Email", c_phone: "Phone", copy: "Copy", copied: "Copied",
@@ -368,11 +368,34 @@
       b.addEventListener("click", function () { PF.openLightbox(p.frames, i, d.title); });
       strip.appendChild(el("li", {}, [b]));
     });
+    $("#strip-prev").setAttribute("aria-label", t("strip_prev"));
+    $("#strip-next").setAttribute("aria-label", t("strip_next"));
+    requestAnimationFrame(updateStripNav);   // 줄이 그려진 뒤, 넘길 곳이 있는 쪽의 화살표만 보이게
 
     var next = P[(idx + 1) % P.length];
     $("#next").setAttribute("href", "#film-" + next.id);
     $("#next-title").textContent = next[lang()].title;
   }
+
+  /* ---------- 선별 스틸 줄: 좌우 화살표 (PC) ---------- */
+  var stripEl = $("#strip"), stripPrev = $("#strip-prev"), stripNext = $("#strip-next");
+  // 맨 앞이면 왼쪽, 맨 끝이면 오른쪽 화살표를 숨기고, 줄이 화면에 다 들어오면 둘 다 숨김
+  function updateStripNav() {
+    var max = stripEl.scrollWidth - stripEl.clientWidth;
+    // 첫 사진은 scroll-snap 때문에 왼쪽 여백(padding)만큼 넘어간 위치에서 시작하므로, 그 위치도 '맨 앞'으로 봄
+    var startPos = parseFloat(getComputedStyle(stripEl).paddingLeft) || 0;
+    stripPrev.classList.toggle("off", max < 4 || stripEl.scrollLeft <= startPos + 4);
+    stripNext.classList.toggle("off", max < 4 || stripEl.scrollLeft > max - 4);
+  }
+  // 한 번에 한 화면(약 80%)만큼 넘김. 끝 위치는 scroll-snap 이 가까운 사진 앞으로 맞춰 줌
+  function stripGo(dir) {
+    var amount = Math.max(stripEl.clientWidth * 0.8, 240) * dir;
+    try { stripEl.scrollBy({ left: amount, behavior: PF.reduceMotion ? "auto" : "smooth" }); } catch (e) { stripEl.scrollLeft += amount; }
+  }
+  stripPrev.addEventListener("click", function () { stripGo(-1); });
+  stripNext.addEventListener("click", function () { stripGo(1); });
+  stripEl.addEventListener("scroll", updateStripNav, { passive: true });
+  window.addEventListener("resize", updateStripNav);
 
   /* ---------- 연락 화면 ---------- */
   function renderContact() {
