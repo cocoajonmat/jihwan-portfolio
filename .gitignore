@@ -1,0 +1,5 @@
+.DS_Store
+Thumbs.db
+node_modules/
+# 원본 영상·이미지(용량이 큼)는 raw/ 폴더에 두고 git에는 올리지 않습니다.
+raw/
