@@ -254,8 +254,9 @@ body:not(.in-list) .lang { border-left-color: transparent; padding-left: 0; }
 .credit-list .me dd { color: var(--accent); }
 .pal { display: flex; height: 64px; }
 .pal li { flex: 1; display: flex; align-items: flex-end; padding: 6px; font: 400 9px/1 var(--mono); letter-spacing: .04em; }
-.strip-head { display: flex; justify-content: space-between; gap: 16px; margin-top: clamp(48px, 7vw, 96px); padding-bottom: 10px; }
-.strip-head h2 { color: var(--fg); }
+.strip-head { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 6px 16px; margin-top: clamp(48px, 7vw, 96px); padding-bottom: 16px; }
+/* '선별 스틸' 제목: 작은 고정폭 글꼴(.mono)에서 상세 제목과 같은 계열의 큰 글씨로. 오른쪽 안내 문구는 작게 유지 */
+.strip-head h2 { font: 500 clamp(24px, 2.8vw, 38px)/1.15 var(--display); letter-spacing: -0.02em; text-transform: none; color: var(--fg); }
 .strip { display: flex; gap: var(--gap); overflow-x: auto; margin: 0 calc(var(--pad) * -1); padding: 0 var(--pad) 14px; scroll-snap-type: x proximity; scrollbar-width: thin; scrollbar-color: #333a33 transparent; }
 .strip li { flex: 0 0 auto; scroll-snap-align: start; }
 /* 선별 스틸 좌우 화살표: 살짝 투명하게 두고 마우스를 올리면 또렷해짐. 끝에 닿으면 그쪽 화살표는 사라짐(.off). 터치 기기에서는 숨김 */
