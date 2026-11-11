@@ -71,7 +71,7 @@
 3. [ ] **이미지 교체**: 작품마다 `thumb`(친구가 따로 주는 썸네일), `still` 파일을 규격(README 참고)에 맞춰 변환해서 `assets/` 에 넣고, 쓰지 않는 샘플 이미지(`NN-before.webp` 포함)는 삭제.
 4. [ ] **영상 연결**: 남은 테스트 값(01번 `preview`=`bg-01.mp4`)을 실제 자료로 교체. 쇼릴·홈 배경·01/02번 풀영상은 반영 완료. 앞으로: 작품별 `youtube`(풀영상), 작품별 `preview`(5초 mp4, 1~2MB). 샘플 `assets/showreel.mp4`, `assets/bg-01.mp4` 는 자리표시용이라 교체 후 삭제.
 5. [ ] **목록 배치 점검**: 작품 수를 바꾸면 `layout` 의 wide/offset 짝이 어색해질 수 있음. 1440 / 1024 / 390px 폭에서 확인.
-6. [ ] **메타 정보 교체**: `<title>`과 `description` 은 임시 문구로 교체 완료. 남은 것: 파비콘, 공유용 미리보기 이미지(`og:image`, 배포 주소가 정해지면 `og:title`/`og:description` 과 함께 추가).
+6. [ ] **메타 정보 교체**: `<title>`과 `description` 은 임시 문구로 교체 완료. 공유용 미리보기(`og:*`, 이미지 `assets/og-image.jpg` 1280×720, 원본 3840×2160은 `raw/주소미리보기이미지.jpg`)도 추가 완료. 남은 것: 파비콘. `og:image`/`og:url` 은 전체 주소(`https://cocoajonmat.github.io/jihwan-portfolio/...`)라서 도메인을 바꾸면 `index.html` 에서 함께 고칠 것(상대 경로 규칙의 유일한 예외). 카카오톡/페이스북은 미리보기를 캐시하므로 바꾼 뒤에는 각 서비스의 공유 디버거로 새로 고쳐야 함.
 7. [x] **샘플 표시 제거**: 목록 맨 아래 문구 삭제 완료. (영상이 없을 때 보이는 "영상 준비 중 · 샘플", 쇼릴 "(샘플)" 안내는 영상을 연결하면 사라짐)
 8. [x] **배포**: GitHub Pages 로 공개 완료(2026-11-11). 주소 https://cocoajonmat.github.io/jihwan-portfolio/ , 저장소 https://github.com/cocoajonmat/jihwan-portfolio (Public, `main` 브랜치 루트). 아직 샘플 작품이 섞여 있음. 남은 것: 필요하면 도메인 연결, `og:image` 추가.
 9. [ ] **최종 점검**: 한/영 문구, 휴대폰 화면, 콘솔 오류, 키보드 조작, 쇼릴/풀영상/hover 미리보기 재생. 마지막에 쓰지 않는 BEFORE/AFTER 슬라이더 코드 삭제 여부 결정.
@@ -112,7 +112,7 @@
 
 **동진 님이 정할 것 (친구 아님)**
 - [x] 사이트 `<title>`과 `description` 문구 (임시 문구로 교체 완료. 마음에 안 들면 `index.html` 7~8번째 줄, 탭 제목은 `app.js` 의 `title_home` 과 같게 유지)
-- [ ] 배포 주소 (`github.io` / 도메인). 정해지면 링크 미리보기 이미지 `og:image`(1200×630 jpg, 전체 주소 필요) 추가
+- [x] 배포 주소 `github.io` 로 결정, 링크 미리보기 이미지 `og:image` 추가 완료 (도메인을 따로 살지는 미정)
 
 ## 열린 질문 (동진 또는 친구에게 확인)
 
