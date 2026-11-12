@@ -66,7 +66,7 @@ window.SITE = {
     {
       id: "01", cat: "dancefilm", youtube: "FlLhlmD5D8Y", preview: "assets/01-preview.mp4", year: 2026, runtime: "12:48", layout: "wide",
       image: "assets/01-thumb.webp", before: "", frames: stills("01", 9),
-      palette: ["#582c0f", "#e3cc8d", "#14603d", "#39b975", "#b8dbc7"],
+      palette: ["#140806", "#372616", "#594427", "#887453", "#beab8c"],
       credits: cr([["감독", "이윤지", 0], ["D.I", me, 1]],
                   [["Director", "Lee Yoonji", 0], ["D.I", meEn, 1]]),
       awards: cr([["제9회 서울무용영화제 (SeDAFF)", "노미네이트", "한국, 서울"],
