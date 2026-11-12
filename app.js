@@ -14,7 +14,7 @@
       cmp_label: "보정 전후 비교", cmp_close: "× 영상 닫기",
       contact_label: "연락", c_back: "홈으로", c_email: "이메일", c_phone: "전화", copy: "복사", copied: "복사됨",
       reel_empty_title: "쇼릴 준비 중", reel_empty_body: "영상 파일을 연결하면 여기서 재생됩니다. (샘플)",
-      all: "전체", title_home: "윤지환 영상 포트폴리오", title_contact: "연락"
+      all: "전체", empty_cat: "곧 공개됩니다.", title_home: "윤지환 영상 포트폴리오", title_contact: "연락"
     },
     en: {
       id_go: "Open contact", watch: "Watch showreel", featured: "Featured", bg_pause: "Pause background", bg_play: "Play background",
@@ -25,7 +25,7 @@
       cmp_label: "Before and after grade", cmp_close: "× Close video",
       contact_label: "Contact", c_back: "Home", c_email: "Email", c_phone: "Phone", copy: "Copy", copied: "Copied",
       reel_empty_title: "Showreel coming soon", reel_empty_body: "Connect a video file and it will play here. (sample)",
-      all: "All", title_home: "Yoon Jihwan Film Portfolio", title_contact: "Contact"
+      all: "All", empty_cat: "Coming soon.", title_home: "Yoon Jihwan Film Portfolio", title_contact: "Contact"
     }
   };
   PF.boot(T);
@@ -209,6 +209,8 @@
       if (pv) wirePreview(a, li, pv);
       m.appendChild(li);
     });
+    // 아직 작품이 없는 분야(예: Movie)를 눌렀을 때 빈 화면 대신 안내 문구를 보여 줍니다.
+    if (!list.length) m.appendChild(el("li", { class: "mono tile-empty", text: t("empty_cat") }));
     $("#work-count").textContent = pad2(list.length) + " / " + pad2(P.length);
   }
 
@@ -325,7 +327,7 @@
     var d = p[lang()], idx = P.indexOf(p);
     $("#d-no").textContent = p.id + " / " + pad2(P.length);
     $("#film-title").textContent = d.title;
-    $("#d-line").textContent = [d.kind, d.role, p.year, p.runtime].join(" · ");
+    $("#d-line").textContent = [d.kind, d.role, p.year, p.runtime].filter(Boolean).join(" · ");   // 연도·러닝타임을 아직 모르면 그 칸은 건너뜀
     $("#film-summary").textContent = d.summary;
     // 수상·노미네이트: 데이터가 있는 작품에서만 보입니다. 한 줄 = [영화제 이름, 결과, 장소]
     var aw = p.awards ? p.awards[lang()] : [], awList = $("#award-list");
@@ -349,7 +351,7 @@
     (p.credits ? p.credits[lang()] : []).forEach(function (c) {
       rows.appendChild(el("div", { class: c[2] ? "me" : "" }, [el("dt", { text: c[0] }), el("dd", { text: c[1] })]));
     });
-    rows.appendChild(el("div", {}, [el("dt", { text: lang() === "ko" ? "러닝타임" : "Runtime" }), el("dd", { class: "num", text: p.runtime })]));
+    if (p.runtime) rows.appendChild(el("div", {}, [el("dt", { text: lang() === "ko" ? "러닝타임" : "Runtime" }), el("dd", { class: "num", text: p.runtime })]));
 
     var pal = $("#pal");
     pal.textContent = "";

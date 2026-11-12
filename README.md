@@ -35,10 +35,11 @@ IntelliJ로 열어서 고쳐도 됩니다. 어떤 에디터든 글자 파일만 
 ```js
 name: { ko: "윤지환", en: "Yoon Jihwan" },
 wordmark: "jihwan.yoon",        // 왼쪽 위 로고와 홈의 큰 이름
-email: "hello@example.com",     // 실제 이메일로
+email: "colorbydavid@naver.com", // 연락 화면과 이름 카드에 보입니다
+bio: { ko: "첫 문단.\n\n둘째 문단.", en: "..." }, // 이름 카드·연락 화면의 소개. \n 은 줄바꿈, 빈 줄은 문단 나누기
 phone: "010-0000-0000",         // 실제 번호로 (공개가 부담스러우면 지우는 것도 방법)
 links: [ ... ],                 // 인스타그램, 유튜브 주소
-bgVideo: "assets/bg-reel.mp4",  // 홈 배경(쇼릴) 영상. 작품 목록과는 별개입니다
+bgVideo: "assets/bg-showreel-hd.mp4", // 홈 배경(쇼릴) 영상. 작품 목록과는 별개입니다
 showreel: "assets/showreel.mp4",// '쇼릴 보기' 팝업에서 재생될 영상
 ```
 
@@ -48,7 +49,7 @@ showreel: "assets/showreel.mp4",// '쇼릴 보기' 팝업에서 재생될 영상
 | 항목 | 설명 |
 |---|---|
 | `id` | 두 자리 번호 (`"09"`). 주소(`#film-09`)와 이미지 파일 이름에 쓰입니다 |
-| `cat` | 분야. `SITE.cats` 의 `id` 중 하나 (`dancefilm`, `mv`). 분야를 바꾸거나 늘리려면 `SITE.cats` 를 고치고 작품의 `cat` 도 같이 맞춥니다 |
+| `cat` | 분야. `SITE.cats` 의 `id` 중 하나 (`dancefilm`, `mv`, `movie`). 분야를 바꾸거나 늘리려면 `SITE.cats` 를 고치고 작품의 `cat` 도 같이 맞춥니다 |
 | `image` | 보정 후(AFTER) 대표 이미지. 목록 카드와 상세 화면에 쓰입니다 |
 | `before` | (지금은 쓰지 않음) 보정 전 이미지. 비워 두면(`""`) 전후 비교 없이 일반 플레이어가 나옵니다. 전후 비교는 풀영상 안의 와이퍼로 보여 줍니다 |
 | `frames` | 상세 화면 아래 스틸 이미지들 |
@@ -68,7 +69,7 @@ showreel: "assets/showreel.mp4",// '쇼릴 보기' 팝업에서 재생될 영상
 | 용도 | 방법 |
 |---|---|
 | 쇼릴, 작품 본편 (긴 영상) | **유튜브에 올리고 ID만 적기.** `showreelYoutube: "영상ID"`, 작품은 `youtube: "영상ID"` |
-| 홈 배경 (`SITE` 맨 위) | 무음 영상을 파일로 넣고 `bgVideo: "assets/bg-reel.mp4"`, 로딩 중에 보일 이미지는 `bgImage`. 유튜브를 쓰려면 `bgYoutube: "영상ID"` |
+| 홈 배경 (`SITE` 맨 위) | 무음 영상을 파일로 넣고 `bgVideo: "assets/bg-showreel-hd.mp4"`, 로딩 중에 보일 이미지는 `bgImage`. 유튜브를 쓰려면 `bgYoutube: "영상ID"` |
 | 목록 카드 미리보기 | 3~5초 무음 mp4 (원본 → 와이퍼 → 보정본)를 파일로 넣고 `preview: "assets/01-preview.mp4"` |
 | 전후 비교 (선택) | 영상 파일 두 개를 쓰는 방식(`videoBefore`, `videoAfter`)은 지금 쓰지 않습니다. 비교는 풀영상의 와이퍼로 보여 줍니다 |
 | 쇼릴을 파일로 | 작게 줄여서 `showreel: "assets/showreel.mp4"` (유튜브를 쓰면 `showreel` 은 빈 문자열 `""` 로) |
@@ -79,8 +80,11 @@ showreel: "assets/showreel.mp4",// '쇼릴 보기' 팝업에서 재생될 영상
 ### 영상 줄이기 (ffmpeg)
 
 ```bash
-# 홈 배경: 소리 없음, 높이 1080. 영상에 검은 띠가 있으면 crop 으로 잘라냄 (예: 4K 영상의 위아래 260px)
-ffmpeg -i raw/원본.mp4 -vf "crop=3840:1640:0:260,scale=-2:1080:flags=lanczos" -an -c:v libx264 -preset slow -crf 24 -pix_fmt yuv420p -movflags +faststart assets/bg-reel.mp4
+# 홈 배경: 소리 없음. 영상에 검은 띠가 있으면 crop 으로 잘라냄 (crop=가로:세로:왼쪽:위쪽). 띠 위치는 프레임을 뽑아 직접 재거나 cropdetect 로 확인
+# 지금 쓰는 홈 배경(4K 원본, 위아래 띠 264px → 1080p, 36초, 약 10MB). 4K 원본의 색 태그(bt470m)를 그대로 붙이는 옵션(-x264-params)을 함께 씁니다.
+ffmpeg -i raw/원본.mp4 -vf "crop=3840:1632:0:264,scale=-2:1080:flags=lanczos" -an -c:v libx264 -profile:v high -preset slow -crf 24 -pix_fmt yuv420p -x264-params "colorprim=bt709:transfer=bt470m:colormatrix=bt709:range=tv" -movflags +faststart assets/bg-showreel-hd.mp4
+# 용량이 크면 -crf 를 올립니다(36초 영상 기준 crf 22 약 14MB, 24 약 10MB, 26 약 7.6MB). 720p 원본뿐이면 crop=1280:544:0:88 로 자르고 scale 은 빼세요.
+# 홈 배경을 바꿀 때는 새 파일 이름을 쓰고 projects.js 의 bgVideo 를 고칩니다(같은 이름으로 덮어쓰면 브라우저가 옛 영상을 최대 10분 보여 줄 수 있음)
 
 # 목록 카드 미리보기(4K 원본 → 1080p, 소리 제거). 원본의 색 태그를 그대로 붙이는 옵션(-x264-params)이 중요합니다.
 # 원본이 bt470m(감마 2.2)로 태그돼 있는데 옵션 없이 변환하면 태그가 빠져서 브라우저에서 조금 어둡게 보입니다.
