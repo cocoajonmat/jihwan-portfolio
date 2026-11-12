@@ -83,7 +83,7 @@ window.SITE = {
     {
       id: "02", cat: "mv", youtube: "t8wWx2-SJWQ", preview: "assets/02-preview.mp4", year: 2025, runtime: "03:40", layout: "",
       image: "assets/02-thumb.webp", before: "", frames: stills("02", 11),
-      palette: ["#a42525", "#b38220", "#cfd68c", "#6579a3"],
+      palette: ["#747474", "#a22929", "#a46327", "#121747"],
       credits: cr([["작곡 · 작사", "JJ", 0], ["감독", "김승희", 0], ["D.I", me, 1]],
                   [["Music & Lyrics", "JJ", 0], ["Director", "Kim Seunghee", 0], ["D.I", meEn, 1]]),
       ko: { title: "광기", kind: "MV", role: "D.I",
