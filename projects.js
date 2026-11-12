@@ -81,7 +81,7 @@ window.SITE = {
         summary: "This film does not define Ain's unsteadiness as a rite of passage toward growth, or as a lack to be overcome. Instead, it believes that those imperfect movements, stopping just as one tries to move forward and losing what one reaches to hold, are the rawest state a human being can be in. When a zelkova branch swaying in the wind brushes across a cheek, what we meet is not a tender comfort but a cool, unmistakable sense of being alive." }
     },
     {
-      id: "02", cat: "mv", youtube: "t8wWx2-SJWQ", preview: "assets/02-preview.mp4", year: 2025, runtime: "03:40", layout: "",
+      id: "02", cat: "mv", youtube: "t8wWx2-SJWQ", preview: "assets/02-preview-v2.mp4", year: 2025, runtime: "03:40", layout: "",
       image: "assets/02-thumb.webp", before: "", frames: stills("02", 11),
       palette: ["#747474", "#a22929", "#a46327", "#121747"],
       credits: cr([["작곡 · 작사", "JJ", 0], ["감독", "김승희", 0], ["D.I", me, 1]],
